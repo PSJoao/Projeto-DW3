@@ -26,11 +26,10 @@ const insertAlunos = async (alunoREGPar) => {
   try {
     linhasAfetadas = (
       await db.query(
-        'INSERT INTO alunos ' + 'values(default, $1, $2, $3)',
+        'INSERT INTO alunos (nome, matricula) ' + 'values($1, $2)',
         [
           alunoREGPar.nome,
-          alunoREGPar.matricula,
-          
+          alunoREGPar.matricula,          
         ],
       )
     ).rowCount;
@@ -49,15 +48,13 @@ const updateAlunos = async (alunoREGPar) => {
     linhasAfetadas = (
       await db.query(
         'UPDATE alunos SET ' +
-          'nome = $3, ' +
-          'matricula = $7, ' +
-          'deleted = $8 ' +
+          'nome = $2, ' +
+          'matricula = $3, ' +
           'WHERE aluno_id = $1',
         [
           alunoREGPar.aluno_id,
           alunoREGPar.nome,
           alunoREGPar.matricula,
-          alunoREGPar.deleted,
         ],
       )
     ).rowCount;
