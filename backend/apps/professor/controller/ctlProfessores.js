@@ -3,11 +3,6 @@ const mdlProfessores = require('../model/mdlProfessores');
 const getAllProfessores = (req, res) =>
   (async () => {
     let registro = await mdlProfessores.getAllProfessores();
-    for (let i = 0; i < registro.length; i++) {
-      const row = registro[i];
-      const formattedDate = row.datanascimento.toISOString().split('T')[0];
-      row.datanascimento = formattedDate;
-    }
     res.json({ status: 'ok', registro: registro });
 })();
 
@@ -29,14 +24,14 @@ const insertProfessores = (request, res) =>
 const updateProfessores = (request, res) =>
   (async () => {
     const professorREG = request.body;
-    let { msg, linhasAfetadas } = await mdlProfessores.UpdateProfessores(professorREG);
+    let { msg, linhasAfetadas } = await mdlProfessores.updateProfessores(professorREG);
     res.json({ status: msg, linhasAfetadas: linhasAfetadas });
 })();
 
-const DeleteProfessores = (request, res) =>
+const deleteProfessores = (request, res) =>
   (async () => {
     const professorREG = request.body;
-    let { msg, linhasAfetadas } = await mdlProfessores.DeleteProfessores(professorREG);
+    let { msg, linhasAfetadas } = await mdlProfessores.deleteProfessores(professorREG);
     res.json({ status: msg, linhasAfetadas: linhasAfetadas });
 })();
 
@@ -45,5 +40,5 @@ module.exports = {
   getProfessorByID,
   insertProfessores,
   updateProfessores,
-  DeleteProfessores,
+  deleteProfessores,
 };
