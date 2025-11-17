@@ -1,0 +1,260 @@
+@host = http://localhost:40000
+@myToken = 
+
+###
+# ===============================================
+# 1. MÓDULO DE LOGIN E AUTENTICAÇÃO
+# ===============================================
+
+###
+# Login (Execute este primeiro!)
+# @name login
+POST {{host}}/login
+Content-Type: application/json
+
+{
+  "username": "qwe",
+  "password": "qwe"
+}
+
+# Captura o token de login para usar nas próximas requisições
+@myToken = {{login.response.body.token}}
+
+###
+# ===============================================
+# 2. MÓDULO DE DASHBOARD
+# ===============================================
+
+###
+# Rota Principal (GET /) - Retorna dados do Dashboard
+#
+GET {{host}}/
+Authorization: Bearer {{myToken}}
+
+
+###
+# ===============================================
+# 3. MÓDULO DE ALUNOS
+# ===============================================
+
+###
+# GET All Alunos
+GET {{host}}/getAllAlunos
+Authorization: Bearer {{myToken}}
+
+###
+# POST Insert Aluno
+POST {{host}}/insertAlunos
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "nome": "Novo Aluno Teste",
+  "matricula": "2025001"
+}
+
+###
+# POST Get Aluno By ID
+# (Altere o 'alunoid' para testar)
+POST {{host}}/getAlunoByID
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "alunoid": 1
+}
+
+###
+# POST Update Aluno
+# (Altere o 'aluno_id' e os dados)
+POST {{host}}/updateAlunos
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "aluno_id": 1,
+  "nome": "Aluno Teste Alterado",
+  "matricula": "2025001-A"
+}
+
+###
+# POST Delete Aluno
+# (Altere o 'aluno_id' para deletar)
+POST {{host}}/deleteAlunos
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "aluno_id": 1
+}
+
+
+###
+# ===============================================
+# 4. MÓDULO DE PROFESSORES
+# ===============================================
+
+###
+# GET All Professores
+GET {{host}}/getAllProfessores
+Authorization: Bearer {{myToken}}
+
+###
+# POST Insert Professor
+POST {{host}}/insertProfessores
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "nome": "Novo Professor Teste",
+  "email": "professor.teste@escola.com"
+}
+
+###
+# POST Get Professor By ID
+POST {{host}}/getProfessorByID
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "professorid": 1
+}
+
+###
+# POST Update Professor
+POST {{host}}/updateProfessores
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "professor_id": 1,
+  "nome": "Professor Teste Alterado",
+  "email": "professor.alterado@escola.com"
+}
+
+###
+# POST Delete Professor
+POST {{host}}/deleteProfessores
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "professor_id": 1
+}
+
+
+###
+# ===============================================
+# 5. MÓDULO DE DISCIPLINAS
+# ===============================================
+
+###
+# GET All Disciplinas
+GET {{host}}/getAllDisciplinas
+Authorization: Bearer {{myToken}}
+
+###
+# POST Insert Disciplina
+# (Altere 'professor_id' para um ID de professor que exista)
+POST {{host}}/insertDisciplinas
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "nome_disciplina": "Web 3",
+  "codigo_disciplina": "WEB3-2025",
+  "professor_id": 1
+}
+
+###
+# POST Get Disciplina By ID
+POST {{host}}/getDisciplinaByID
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "disciplinaid": 1
+}
+
+###
+# POST Update Disciplina
+POST {{host}}/updateDisciplinas
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "disciplina_id": 1,
+  "nome_disciplina": "Web 3 (Atualizada)",
+  "codigo_disciplina": "WEB3-2025-A",
+  "professor_id": 1
+}
+
+###
+# POST Delete Disciplina
+POST {{host}}/deleteDisciplinas
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "disciplina_id": 1
+}
+
+
+###
+# ===============================================
+# 6. MÓDULO DE MATRÍCULAS (N-N)
+# ===============================================
+
+###
+# POST Matricular Aluno (Insert)
+# (Use IDs de aluno e disciplina existentes)
+POST {{host}}/insertAlunoDisciplina
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "aluno_id": 1,
+  "disciplina_id": 1
+}
+
+###
+# POST Listar Disciplinas de um Aluno
+POST {{host}}/getDisciplinasByAlunoID
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "alunoid": 1
+}
+
+###
+# POST Listar Alunos de uma Disciplina
+POST {{host}}/getAlunosByDisciplinaID
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "disciplinaid": 1
+}
+
+###
+# POST Desmatricular Aluno (Delete)
+POST {{host}}/deleteAlunoDisciplina
+Authorization: Bearer {{myToken}}
+Content-Type: application/json
+
+{
+  "aluno_id": 1,
+  "disciplina_id": 1
+}
+
+
+###
+# ===============================================
+# 7. LOGOUT
+# ===============================================
+
+###
+# Logout
+POST {{host}}/logout
+Authorization: Bearer {{myToken}}
