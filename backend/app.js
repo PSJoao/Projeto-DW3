@@ -15,5 +15,4 @@ app.use(router);
 
 app.listen(port, async () => {
   console.log(`App listening at port ${port}`)
-  await bootstrapDatabase();
 })
