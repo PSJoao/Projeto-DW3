@@ -5,15 +5,14 @@ const routerApp = express.Router();
 const appLogin = require('../apps/login/controller/ctlLogin');
 const appAluno = require('../apps/aluno/controller/ctlAlunos');
 const appProfessores = require('../apps/professor/controller/ctlProfessores')
-
-
-routerApp.get('/', (req, res) => {
-  res.send('Olá mundo!');
-});
+const appDashboard = require('../apps/dashboard/controller/ctlDashboard')
 
 //Rotas de Autenticação
 routerApp.post('/login', appLogin.Login);
 routerApp.post('/logout', appLogin.Logout);
+
+//Rota principal
+routerApp.get('/', appLogin.AutenticaJWT, appDashboard.getDashboardDados);
 
 //Rotas de aluno
 routerApp.get('/getAllAlunos', appLogin.AutenticaJWT, appAluno.getAllAlunos);
@@ -28,6 +27,7 @@ routerApp.post('/getProfessorByID', appLogin.AutenticaJWT, appProfessores.getPro
 routerApp.post('/insertProfessores', appLogin.AutenticaJWT, appProfessores.insertProfessores);
 routerApp.post('/updateProfessores', appLogin.AutenticaJWT, appProfessores.updateProfessores);
 routerApp.post('/deleteProfessores', appLogin.AutenticaJWT, appProfessores.deleteProfessores);
+
 
 
 module.exports = routerApp;
