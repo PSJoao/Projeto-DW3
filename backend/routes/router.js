@@ -6,6 +6,8 @@ const appLogin = require('../apps/login/controller/ctlLogin');
 const appAluno = require('../apps/aluno/controller/ctlAlunos');
 const appProfessores = require('../apps/professor/controller/ctlProfessores')
 const appDashboard = require('../apps/dashboard/controller/ctlDashboard')
+const appDisciplina = require('../apps/disciplina/controller/ctlDisciplinas')
+const appMatricula = require('../apps/matricula/controller/ctlMatriculas')
 
 //Rotas de Autenticação
 routerApp.post('/login', appLogin.Login);
@@ -27,6 +29,20 @@ routerApp.post('/getProfessorByID', appLogin.AutenticaJWT, appProfessores.getPro
 routerApp.post('/insertProfessores', appLogin.AutenticaJWT, appProfessores.insertProfessores);
 routerApp.post('/updateProfessores', appLogin.AutenticaJWT, appProfessores.updateProfessores);
 routerApp.post('/deleteProfessores', appLogin.AutenticaJWT, appProfessores.deleteProfessores);
+
+//Rotas das dissiplinas
+routerApp.get('/getAllDisciplinas', appLogin.AutenticaJWT, appDisciplina.getAllDisciplinas);
+routerApp.post('/getDisciplinaByID', appLogin.AutenticaJWT, appDisciplina.getDisciplinaByID);
+routerApp.post('/insertDisciplinas', appLogin.AutenticaJWT, appDisciplina.insertDisciplinas);
+routerApp.post('/updateDisciplinas', appLogin.AutenticaJWT, appDisciplina.updateDisciplinas);
+routerApp.post('/deleteDisciplinas', appLogin.AutenticaJWT, appDisciplina.deleteDisciplinas);
+
+//Rotas das Matriculas
+routerApp.post('/getDisciplinasByAlunoID', appLogin.AutenticaJWT, appMatricula.getDisciplinasByAlunoID);
+routerApp.post('/getAlunosByDisciplinaID', appLogin.AutenticaJWT, appMatricula.getAlunosByDisciplinaID);
+routerApp.post('/insertAlunoDisciplina', appLogin.AutenticaJWT, appMatricula.insertAlunoDisciplina);
+routerApp.post('/deleteAlunoDisciplina', appLogin.AutenticaJWT, appMatricula.deleteAlunoDisciplina);
+
 
 
 
