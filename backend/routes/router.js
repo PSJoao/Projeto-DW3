@@ -30,7 +30,7 @@ routerApp.post('/insertProfessores', appLogin.AutenticaJWT, appProfessores.inser
 routerApp.post('/updateProfessores', appLogin.AutenticaJWT, appProfessores.updateProfessores);
 routerApp.post('/deleteProfessores', appLogin.AutenticaJWT, appProfessores.deleteProfessores);
 
-//Rotas das dissiplinas
+//Rotas das disciplinas
 routerApp.get('/getAllDisciplinas', appLogin.AutenticaJWT, appDisciplina.getAllDisciplinas);
 routerApp.post('/getDisciplinaByID', appLogin.AutenticaJWT, appDisciplina.getDisciplinaByID);
 routerApp.post('/insertDisciplinas', appLogin.AutenticaJWT, appDisciplina.insertDisciplinas);
