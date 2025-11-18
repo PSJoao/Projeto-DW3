@@ -48,7 +48,7 @@ const updateProfessores = async (professorREGPar) => {
       await db.query(
         'UPDATE professores SET ' +
           'nome = $2, ' +
-          'email = $3, ' +
+          'email = $3 ' +
           'WHERE professor_id = $1',
         [
           professorREGPar.professor_id,

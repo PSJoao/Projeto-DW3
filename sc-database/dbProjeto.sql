@@ -20,6 +20,7 @@ CREATE TABLE alunos
     aluno_id SERIAL,
     nome VARCHAR(100) NOT NULL,
     matricula VARCHAR(100) NOT NULL,
+    datanascimento DATE NOT NULL,
     deleted boolean DEFAULT false,
     CONSTRAINT pk_id_aluno PRIMARY KEY (aluno_id),
     CONSTRAINT un_matricula_aluno UNIQUE (matricula)

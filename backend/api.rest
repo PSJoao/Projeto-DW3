@@ -1,13 +1,7 @@
 @host = http://localhost:40000
-@myToken = 
 
+# Login
 ###
-# ===============================================
-# 1. MÓDULO DE LOGIN E AUTENTICAÇÃO
-# ===============================================
-
-###
-# Login (Execute este primeiro!)
 # @name login
 POST {{host}}/login
 Content-Type: application/json
@@ -17,92 +11,66 @@ Content-Type: application/json
   "password": "qwe"
 }
 
-# Captura o token de login para usar nas próximas requisições
-@myToken = {{login.response.body.token}}
-
+# Dashboard
 ###
-# ===============================================
-# 2. MÓDULO DE DASHBOARD
-# ===============================================
-
-###
-# Rota Principal (GET /) - Retorna dados do Dashboard
-#
 GET {{host}}/
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 
-
+# Alunos
 ###
-# ===============================================
-# 3. MÓDULO DE ALUNOS
-# ===============================================
-
-###
-# GET All Alunos
 GET {{host}}/getAllAlunos
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 
 ###
-# POST Insert Aluno
 POST {{host}}/insertAlunos
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
-  "nome": "Novo Aluno Teste",
-  "matricula": "2025001"
+  "nome": "Aluno Teste 2",
+  "matricula": "VP305",
+  "datanascimento": "06-01-2000"
 }
 
 ###
-# POST Get Aluno By ID
-# (Altere o 'alunoid' para testar)
 POST {{host}}/getAlunoByID
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
-  "alunoid": 1
+  "alunoid": 4
 }
 
 ###
-# POST Update Aluno
-# (Altere o 'aluno_id' e os dados)
 POST {{host}}/updateAlunos
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
-  "aluno_id": 1,
+  "aluno_id": 3,
   "nome": "Aluno Teste Alterado",
-  "matricula": "2025001-A"
+  "matricula": "VP301-A",
+  "datanascimento": "12-09-2000"
 }
 
 ###
-# POST Delete Aluno
-# (Altere o 'aluno_id' para deletar)
 POST {{host}}/deleteAlunos
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
-  "aluno_id": 1
+  "aluno_id": 3
 }
 
 
+# Professores
 ###
-# ===============================================
-# 4. MÓDULO DE PROFESSORES
-# ===============================================
-
-###
-# GET All Professores
 GET {{host}}/getAllProfessores
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 
 ###
-# POST Insert Professor
 POST {{host}}/insertProfessores
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
@@ -111,9 +79,8 @@ Content-Type: application/json
 }
 
 ###
-# POST Get Professor By ID
 POST {{host}}/getProfessorByID
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
@@ -121,9 +88,8 @@ Content-Type: application/json
 }
 
 ###
-# POST Update Professor
 POST {{host}}/updateProfessores
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
@@ -133,9 +99,8 @@ Content-Type: application/json
 }
 
 ###
-# POST Delete Professor
 POST {{host}}/deleteProfessores
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
@@ -143,21 +108,14 @@ Content-Type: application/json
 }
 
 
+# Disciplinas
 ###
-# ===============================================
-# 5. MÓDULO DE DISCIPLINAS
-# ===============================================
-
-###
-# GET All Disciplinas
 GET {{host}}/getAllDisciplinas
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 
 ###
-# POST Insert Disciplina
-# (Altere 'professor_id' para um ID de professor que exista)
 POST {{host}}/insertDisciplinas
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
@@ -167,9 +125,8 @@ Content-Type: application/json
 }
 
 ###
-# POST Get Disciplina By ID
 POST {{host}}/getDisciplinaByID
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
@@ -177,9 +134,8 @@ Content-Type: application/json
 }
 
 ###
-# POST Update Disciplina
 POST {{host}}/updateDisciplinas
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
@@ -190,9 +146,8 @@ Content-Type: application/json
 }
 
 ###
-# POST Delete Disciplina
 POST {{host}}/deleteDisciplinas
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
@@ -200,37 +155,29 @@ Content-Type: application/json
 }
 
 
+# Matrículas
 ###
-# ===============================================
-# 6. MÓDULO DE MATRÍCULAS (N-N)
-# ===============================================
-
-###
-# POST Matricular Aluno (Insert)
-# (Use IDs de aluno e disciplina existentes)
 POST {{host}}/insertAlunoDisciplina
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
-  "aluno_id": 1,
+  "aluno_id": 4,
   "disciplina_id": 1
 }
 
 ###
-# POST Listar Disciplinas de um Aluno
 POST {{host}}/getDisciplinasByAlunoID
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
-  "alunoid": 1
+  "alunoid": 4
 }
 
 ###
-# POST Listar Alunos de uma Disciplina
 POST {{host}}/getAlunosByDisciplinaID
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
@@ -238,23 +185,17 @@ Content-Type: application/json
 }
 
 ###
-# POST Desmatricular Aluno (Delete)
 POST {{host}}/deleteAlunoDisciplina
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
 Content-Type: application/json
 
 {
-  "aluno_id": 1,
+  "aluno_id": 4,
   "disciplina_id": 1
 }
 
 
-###
-# ===============================================
-# 7. LOGOUT
-# ===============================================
-
-###
 # Logout
+###
 POST {{host}}/logout
-Authorization: Bearer {{myToken}}
+Authorization: Bearer {{login.response.body.token}}
