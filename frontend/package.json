@@ -1,0 +1,20 @@
+{
+  "name": "frontend", 
+  "version": "1.0.0",
+  "description": "Frontend do Mini Sistema Acadêmico",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-handlebars": "^7.1.2",
+    "axios": "^1.6.2",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^17.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
