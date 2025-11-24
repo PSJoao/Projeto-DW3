@@ -1,0 +1,44 @@
+{{!-- Página de listagem de disciplinas --}}
+<div class="page-header">
+    <h2>Lista de Disciplinas</h2>
+    <a href="/disciplinas/inserir" class="btn btn-primary">+ Nova Disciplina</a>
+</div>
+
+{{#if disciplinas.length}}
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome da Disciplina</th>
+                    <th>Código</th>
+                    <th>Professor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each disciplinas}}
+                    <tr>
+                        <td>{{this.disciplina_id}}</td>
+                        <td>{{this.nome_disciplina}}</td>
+                        <td>{{this.codigo_disciplina}}</td>
+                        <td>{{this.nome_professor}}</td>
+                        <td class="actions">
+                            <a href="/disciplinas/editar/{{this.disciplina_id}}" class="btn btn-sm btn-edit">Editar</a>
+                            <form method="POST" action="/disciplinas/excluir" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja excluir esta disciplina?');">
+                                <input type="hidden" name="disciplina_id" value="{{this.disciplina_id}}">
+                                <button type="submit" class="btn btn-sm btn-delete">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+{{else}}
+    <div class="empty-state">
+        <p>Nenhuma disciplina cadastrada.</p>
+        <a href="/disciplinas/inserir" class="btn btn-primary">Cadastrar Primeira Disciplina</a>
+    </div>
+{{/if}}
+
