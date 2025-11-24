@@ -1,0 +1,63 @@
+{{!-- Menu lateral de navegação --}}
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <h2>Mini Sistema Acadêmico</h2>
+    </div>
+    <nav class="sidebar-nav">
+        <ul>
+            {{!-- Item do menu Dashboard --}}
+            <li>
+                <a href="/dashboard" class="nav-link {{#if (eq paginaAtiva 'dashboard')}}active{{/if}}">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            
+            {{!-- Item do menu Alunos --}}
+            <li>
+                <a href="/alunos" class="nav-link {{#if (eq paginaAtiva 'alunos')}}active{{/if}}">
+                    <span class="nav-icon">👨‍🎓</span>
+                    <span>Alunos</span>
+                </a>
+            </li>
+            
+            {{!-- Item do menu Professores --}}
+            <li>
+                <a href="/professores" class="nav-link {{#if (eq paginaAtiva 'professores')}}active{{/if}}">
+                    <span class="nav-icon">👨‍🏫</span>
+                    <span>Professores</span>
+                </a>
+            </li>
+            
+            {{!-- Item do menu Disciplinas --}}
+            <li>
+                <a href="/disciplinas" class="nav-link {{#if (eq paginaAtiva 'disciplinas')}}active{{/if}}">
+                    <span class="nav-icon">📚</span>
+                    <span>Disciplinas</span>
+                </a>
+            </li>
+            
+            {{!-- Item do menu Matrículas --}}
+            <li>
+                <a href="/matriculas" class="nav-link {{#if (eq paginaAtiva 'matriculas')}}active{{/if}}">
+                    <span class="nav-icon">📝</span>
+                    <span>Matrículas</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="sidebar-footer">
+        <a href="/logout" class="logout-link">
+            <span class="nav-icon">🚪</span>
+            <span>Sair</span>
+        </a>
+    </div>
+</aside>
+
+{{!-- Helper do Handlebars para comparar valores --}}
+{{!-- Este helper permite verificar se dois valores são iguais --}}
+<script>
+    // Helper para comparar valores no Handlebars
+    // Será registrado no app.js
+</script>
+
