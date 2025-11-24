@@ -1,0 +1,41 @@
+{{!-- Página para editar professor --}}
+<div class="page-header">
+    <h2>Editar Professor</h2>
+    <a href="/professores" class="btn btn-secondary">← Voltar</a>
+</div>
+
+<div class="form-container">
+    <form method="POST" action="/professores/editar" class="form">
+        <input type="hidden" name="professor_id" value="{{professor.professor_id}}">
+        
+        <div class="form-group">
+            <label for="nome">Nome *</label>
+            <input 
+                type="text" 
+                id="nome" 
+                name="nome" 
+                required
+                value="{{professor.nome}}"
+                placeholder="Digite o nome do professor"
+            >
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email *</label>
+            <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                required
+                value="{{professor.email}}"
+                placeholder="Digite o email do professor"
+            >
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            <a href="/professores" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+

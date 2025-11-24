@@ -1,0 +1,42 @@
+{{!-- Página de listagem de professores --}}
+<div class="page-header">
+    <h2>Lista de Professores</h2>
+    <a href="/professores/inserir" class="btn btn-primary">+ Novo Professor</a>
+</div>
+
+{{#if professores.length}}
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each professores}}
+                    <tr>
+                        <td>{{this.professor_id}}</td>
+                        <td>{{this.nome}}</td>
+                        <td>{{this.email}}</td>
+                        <td class="actions">
+                            <a href="/professores/editar/{{this.professor_id}}" class="btn btn-sm btn-edit">Editar</a>
+                            <form method="POST" action="/professores/excluir" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja excluir este professor?');">
+                                <input type="hidden" name="professor_id" value="{{this.professor_id}}">
+                                <button type="submit" class="btn btn-sm btn-delete">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+{{else}}
+    <div class="empty-state">
+        <p>Nenhum professor cadastrado.</p>
+        <a href="/professores/inserir" class="btn btn-primary">Cadastrar Primeiro Professor</a>
+    </div>
+{{/if}}
+
