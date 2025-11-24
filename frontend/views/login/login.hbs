@@ -1,0 +1,43 @@
+{{!-- Página de login --}}
+<div class="login-container">
+    <div class="login-box">
+        <div class="login-header">
+            <h1>Mini Sistema Acadêmico</h1>
+            <p>Faça login para continuar</p>
+        </div>
+        
+        {{#if error}}
+            <div class="alert alert-error">
+                {{error}}
+            </div>
+        {{/if}}
+        
+        <form method="POST" action="/login" class="login-form">
+            <div class="form-group">
+                <label for="username">Usuário:</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    required 
+                    autofocus
+                    placeholder="Digite seu usuário"
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    required
+                    placeholder="Digite sua senha"
+                >
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+        </form>
+    </div>
+</div>
+

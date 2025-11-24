@@ -1,0 +1,36 @@
+{{!-- Página do Dashboard --}}
+<div class="dashboard">
+    <div class="dashboard-cards">
+        {{!-- Card de Total de Alunos --}}
+        <div class="card">
+            <div class="card-icon">👨‍🎓</div>
+            <div class="card-content">
+                <h3>Total de Alunos</h3>
+                <p class="card-number">{{dados.totalAlunos}}</p>
+            </div>
+        </div>
+        
+        {{!-- Card de Total de Professores --}}
+        <div class="card">
+            <div class="card-icon">👨‍🏫</div>
+            <div class="card-content">
+                <h3>Total de Professores</h3>
+                <p class="card-number">{{dados.totalProfessores}}</p>
+            </div>
+        </div>
+        
+        {{!-- Card de Total de Disciplinas --}}
+        <div class="card">
+            <div class="card-icon">📚</div>
+            <div class="card-content">
+                <h3>Total de Disciplinas</h3>
+                <p class="card-number">{{dados.totalDisciplinas}}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="dashboard-welcome">
+        <h2>Bem-vindo ao Mini Sistema Acadêmico!</h2>
+        <p>Use o menu lateral para navegar entre as seções do sistema.</p>
+    </div>
+</div>
