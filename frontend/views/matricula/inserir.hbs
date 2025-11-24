@@ -1,0 +1,35 @@
+{{!-- Página para matricular aluno em disciplina --}}
+<div class="page-header">
+    <h2>Matricular Aluno em Disciplina</h2>
+    <a href="/matriculas" class="btn btn-secondary">← Voltar</a>
+</div>
+
+<div class="form-container">
+    <form method="POST" action="/matriculas/matricular" class="form">
+        <div class="form-group">
+            <label for="aluno_id">Aluno *</label>
+            <select id="aluno_id" name="aluno_id" required>
+                <option value="">Selecione um aluno</option>
+                {{#each alunos}}
+                    <option value="{{this.aluno_id}}">{{this.nome}} ({{this.matricula}})</option>
+                {{/each}}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="disciplina_id">Disciplina *</label>
+            <select id="disciplina_id" name="disciplina_id" required>
+                <option value="">Selecione uma disciplina</option>
+                {{#each disciplinas}}
+                    <option value="{{this.disciplina_id}}">{{this.nome_disciplina}} - {{this.codigo_disciplina}} (Prof: {{this.nome_professor}})</option>
+                {{/each}}
+            </select>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Matricular</button>
+            <a href="/matriculas" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+

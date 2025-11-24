@@ -1,0 +1,82 @@
+{{!-- Página de listagem de matrículas --}}
+<div class="page-header">
+    <h2>Lista de Matrículas</h2>
+    <a href="/matriculas/inserir" class="btn btn-primary">+ Nova Matrícula</a>
+</div>
+
+<div class="matriculas-list">
+    {{#if disciplinas.length}}
+        {{#each disciplinas}}
+            <div class="disciplina-alunos-card card">
+                <div class="disciplina-header">
+                    <h4>{{this.nome_disciplina}} ({{this.codigo_disciplina}})</h4>
+                    <p class="professor-info">Professor: {{this.nome_professor}}</p>
+                </div>
+                <div class="alunos-list" data-disciplina-id="{{this.disciplina_id}}">
+                    <p class="loading">Carregando alunos...</p>
+                </div>
+            </div>
+        {{/each}}
+    {{else}}
+        <div class="empty-state">
+            <p>Nenhuma disciplina cadastrada.</p>
+            <a href="/disciplinas/inserir" class="btn btn-primary">Cadastrar Primeira Disciplina</a>
+        </div>
+    {{/if}}
+</div>
+
+{{!-- Script para carregar alunos de cada disciplina --}}
+<script>
+    // Função para carregar os alunos de uma disciplina
+    async function carregarAlunosDisciplina(disciplinaId) {
+        try {
+            const response = await fetch('/api/alunos-disciplina', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include', // Garante que os cookies sejam enviados
+                body: JSON.stringify({ disciplinaid: disciplinaId })
+            });
+            
+            const data = await response.json();
+            const container = document.querySelector(`[data-disciplina-id="${disciplinaId}"]`);
+            
+            if (data.status === 'ok' && data.registro && data.registro.length > 0) {
+                let html = '<ul class="alunos-items">';
+                data.registro.forEach(aluno => {
+                    html += `
+                        <li>
+                            <span>${aluno.nome} (${aluno.matricula})</span>
+                            <form method="POST" action="/matriculas/desmatricular" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja desmatricular este aluno?');">
+                                <input type="hidden" name="aluno_id" value="${aluno.aluno_id}">
+                                <input type="hidden" name="disciplina_id" value="${disciplinaId}">
+                                <button type="submit" class="btn btn-sm btn-delete">Desmatricular</button>
+                            </form>
+                        </li>
+                    `;
+                });
+                html += '</ul>';
+                container.innerHTML = html;
+            } else {
+                container.innerHTML = '<p class="no-alunos">Nenhum aluno matriculado.</p>';
+            }
+        } catch (error) {
+            console.error('Erro ao carregar alunos:', error);
+            const container = document.querySelector(`[data-disciplina-id="${disciplinaId}"]`);
+            if (container) {
+                container.innerHTML = '<p class="error">Erro ao carregar alunos.</p>';
+            }
+        }
+    }
+    
+    // Carrega os alunos de todas as disciplinas quando a página carrega
+    document.addEventListener('DOMContentLoaded', function() {
+        const disciplinas = document.querySelectorAll('[data-disciplina-id]');
+        disciplinas.forEach(container => {
+            const disciplinaId = container.getAttribute('data-disciplina-id');
+            carregarAlunosDisciplina(disciplinaId);
+        });
+    });
+</script>
+
