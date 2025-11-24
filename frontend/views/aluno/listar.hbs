@@ -1,0 +1,44 @@
+{{!-- Página de listagem de alunos --}}
+<div class="page-header">
+    <h2>Lista de Alunos</h2>
+    <a href="/alunos/inserir" class="btn btn-primary">+ Novo Aluno</a>
+</div>
+
+{{#if alunos.length}}
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Matrícula</th>
+                    <th>Data de Nascimento</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each alunos}}
+                    <tr>
+                        <td>{{this.aluno_id}}</td>
+                        <td>{{this.nome}}</td>
+                        <td>{{this.matricula}}</td>
+                        <td>{{this.datanascimento}}</td>
+                        <td class="actions">
+                            <a href="/alunos/editar/{{this.aluno_id}}" class="btn btn-sm btn-edit">Editar</a>
+                            <form method="POST" action="/alunos/excluir" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja excluir este aluno?');">
+                                <input type="hidden" name="aluno_id" value="{{this.aluno_id}}">
+                                <button type="submit" class="btn btn-sm btn-delete">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+{{else}}
+    <div class="empty-state">
+        <p>Nenhum aluno cadastrado.</p>
+        <a href="/alunos/inserir" class="btn btn-primary">Cadastrar Primeiro Aluno</a>
+    </div>
+{{/if}}
+
