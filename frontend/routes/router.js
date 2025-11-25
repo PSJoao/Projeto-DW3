@@ -14,7 +14,6 @@ const ctlMatriculas = require('../apps/matricula/controller/ctlMatriculas');
 // Verifica se o usuário está logado antes de acessar rotas protegidas
 const autenticaSessao = require('../middleware/autenticaSessao');
 
-// ==================== ROTAS PÚBLICAS ====================
 // Rota inicial - redireciona para login se não autenticado
 routerApp.get('/', autenticaSessao, ctlDashboard.getDashboard);
 
@@ -26,9 +25,6 @@ routerApp.post('/login', ctlLogin.postLogin);
 
 // Rota de logout
 routerApp.get('/logout', ctlLogin.logout);
-
-// ==================== ROTAS PROTEGIDAS ====================
-// Todas as rotas abaixo exigem autenticação (middleware autenticaSessao)
 
 // Dashboard
 routerApp.get('/dashboard', autenticaSessao, ctlDashboard.getDashboard);
@@ -73,8 +69,7 @@ routerApp.post('/matriculas/matricular', autenticaSessao, ctlMatriculas.matricul
 // Processa a desmatrícula de um aluno
 routerApp.post('/matriculas/desmatricular', autenticaSessao, ctlMatriculas.desmatricular);
 
-// ==================== ROTAS API (para AJAX) ====================
-// Rota para buscar alunos de uma disciplina (usado na página de matrículas)
+// Rota para buscar alunos de uma disciplina
 routerApp.post('/api/alunos-disciplina', autenticaSessao, async (req, res) => {
   try {
     const apiService = require('../services/apiService');

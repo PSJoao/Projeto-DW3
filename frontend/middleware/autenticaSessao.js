@@ -1,4 +1,3 @@
-// Middleware de autenticação
 // Verifica se o usuário está logado através do token JWT armazenado no cookie
 // Se não estiver autenticado, redireciona para a página de login
 

@@ -1,11 +1,8 @@
 const axios = require('axios');
 
-// URL base da API backend
-// Esta é a URL onde o backend está rodando
-const API_BASE_URL = process.env.API_URL || 'http://localhost:40000';
+const API_BASE_URL = process.env.API_URL;
 
 // Cria uma instância do axios com configurações padrão
-// Isso facilita o uso em todo o sistema
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -13,14 +10,12 @@ const api = axios.create({
   }
 });
 
-// Função auxiliar para obter o token do cookie
 // O token JWT é armazenado no cookie e precisa ser enviado no header Authorization
 function getTokenFromCookie(req) {
   return req.cookies.token || null;
 }
 
 // Função para fazer requisições autenticadas
-// Adiciona automaticamente o token JWT no header Authorization
 async function fazerRequisicaoAutenticada(req, metodo, endpoint, dados = null) {
   const token = getTokenFromCookie(req);
   
@@ -66,7 +61,7 @@ async function fazerRequisicaoAutenticada(req, metodo, endpoint, dados = null) {
   }
 }
 
-// Função para fazer login (não precisa de autenticação)
+// Função para fazer login
 async function fazerLogin(username, password) {
   try {
     const response = await api.post('/login', {

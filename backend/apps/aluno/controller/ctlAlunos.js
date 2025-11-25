@@ -15,7 +15,11 @@ const getAlunoByID = (req, res) =>
   (async () => {
     const alunoID = parseInt(req.body.alunoid);
     let registro = await mdlAlunos.getAlunoByID(alunoID);
-
+    for (let i = 0; i < registro.length; i++) {
+      const row = registro[i]; 
+      const formattedDate = row.datanascimento.toISOString().split('T')[0];
+      row.datanascimento = formattedDate;
+    }
     res.json({ status: 'ok', registro: registro });
   })();
 

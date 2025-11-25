@@ -42,7 +42,7 @@ const insertAlunoDisciplina = async (regPar) => {
       )
     ).rowCount;
   } catch (error) {
-    msg = '[mdlAlunoDisciplina|insertAlunoDisciplina] ' + error.detail;
+    msg = error.detail;
     linhasAfetadas = -1;
   }
 
@@ -62,7 +62,7 @@ const deleteAlunoDisciplina = async (regPar) => {
       )
     ).rowCount;
   } catch (error) {
-    msg = '[mdlAlunoDisciplina|deleteAlunoDisciplina] ' + error.detail;
+    msg = error.detail;
     linhasAfetadas = -1;
   }
 

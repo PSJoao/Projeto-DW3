@@ -35,7 +35,7 @@ const insertAlunos = async (alunoREGPar) => {
       )
     ).rowCount;
   } catch (error) {
-    msg = '[mdlAlunos|insertAlunos] ' + error.detail;
+    msg = error.detail;
     linhasAfetadas = -1;
   }
 
@@ -62,7 +62,7 @@ const updateAlunos = async (alunoREGPar) => {
       )
     ).rowCount;
   } catch (error) {
-    msg = '[mdlAlunos|insertAlunos] ' + error.detail;
+    msg = error.detail;
     linhasAfetadas = -1;
   }
 
@@ -81,7 +81,7 @@ const deleteAlunos = async (alunoREGPar) => {
       )
     ).rowCount;
   } catch (error) {
-    msg = '[mdlAlunos|insertAlunos] ' + error.detail;
+    msg = error.detail;
     linhasAfetadas = -1;
   }
 

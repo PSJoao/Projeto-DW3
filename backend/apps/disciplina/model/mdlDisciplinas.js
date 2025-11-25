@@ -35,7 +35,7 @@ const insertDisciplinas = async (disciplinaREGPar) => {
       )
     ).rowCount;
   } catch (error) {
-    msg = '[mdlDisciplinas|insertDisciplinas] ' + error.detail;
+    msg = error.detail;
     linhasAfetadas = -1;
   }
 
@@ -62,7 +62,7 @@ const updateDisciplinas = async (disciplinaREGPar) => {
       )
     ).rowCount;
   } catch (error) {
-    msg = '[mdlDisciplinas|updateDisciplinas] ' + error.detail;
+    msg = error.detail;
     linhasAfetadas = -1;
   }
 
@@ -81,7 +81,7 @@ const deleteDisciplinas = async (disciplinaREGPar) => {
       )
     ).rowCount;
   } catch (error) {
-    msg = '[mdlDisciplinas|deleteDisciplinas] ' + error.detail;
+    msg = error.detail;
     linhasAfetadas = -1;
   }
 

@@ -33,7 +33,7 @@ const insertProfessores = async (professorREGPar) => {
       )
     ).rowCount;
   } catch (error) {
-    msg = '[mdlProfessores|insertProfessores] ' + error.detail;
+    msg = error.detail;
     linhasAfetadas = -1;
   }
 
@@ -58,7 +58,7 @@ const updateProfessores = async (professorREGPar) => {
       )
     ).rowCount;
   } catch (error) {
-    msg = '[mdlProfessores|insertProfessores] ' + error.detail;
+    msg = error.detail;
     linhasAfetadas = -1;
   }
 
@@ -77,7 +77,7 @@ const deleteProfessores = async (professorREGPar) => {
       )
     ).rowCount;
   } catch (error) {
-    msg = '[mdlProfessores|insertProfessores] ' + error.detail;
+    msg = error.detail;
     linhasAfetadas = -1;
   }
 

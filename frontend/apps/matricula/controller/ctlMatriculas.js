@@ -1,27 +1,22 @@
 const apiService = require('../../../services/apiService');
 
-// Exibe a página para inserir uma nova matrícula
-// Mostra um formulário para matricular um aluno em uma disciplina
+// Exibe a página para matricular um aluno em uma disciplina
 const inserir = async (req, res) => {
   try {
-    // Busca todos os alunos e disciplinas para os selects do formulário
     const responseAlunos = await apiService.fazerRequisicaoAutenticada(req, 'get', '/getAllAlunos');
     const responseDisciplinas = await apiService.fazerRequisicaoAutenticada(req, 'get', '/getAllDisciplinas');
     
     const alunos = responseAlunos.status === 'ok' ? responseAlunos.registro || [] : [];
     const disciplinas = responseDisciplinas.status === 'ok' ? responseDisciplinas.registro || [] : [];
     
-    // Busca todos os professores para exibir junto com as disciplinas
     const responseProfessores = await apiService.fazerRequisicaoAutenticada(req, 'get', '/getAllProfessores');
     const professores = responseProfessores.status === 'ok' ? responseProfessores.registro || [] : [];
     
-    // Cria um mapa de professores
     const professoresMap = {};
     professores.forEach(prof => {
       professoresMap[prof.professor_id] = prof.nome;
     });
     
-    // Adiciona o nome do professor a cada disciplina
     const disciplinasComProfessor = disciplinas.map(disc => ({
       ...disc,
       nome_professor: professoresMap[disc.professor_id] || 'Não atribuído'
@@ -45,25 +40,20 @@ const inserir = async (req, res) => {
   }
 };
 
-// Lista todas as matrículas
-// Mostra todas as disciplinas com seus alunos matriculados
+// Lista todas as disciplinas com seus alunos matriculados
 const listar = async (req, res) => {
   try {
-    // Busca todas as disciplinas
     const responseDisciplinas = await apiService.fazerRequisicaoAutenticada(req, 'get', '/getAllDisciplinas');
     const disciplinas = responseDisciplinas.status === 'ok' ? responseDisciplinas.registro || [] : [];
     
-    // Busca todos os professores para exibir junto com as disciplinas
     const responseProfessores = await apiService.fazerRequisicaoAutenticada(req, 'get', '/getAllProfessores');
     const professores = responseProfessores.status === 'ok' ? responseProfessores.registro || [] : [];
     
-    // Cria um mapa de professores
     const professoresMap = {};
     professores.forEach(prof => {
       professoresMap[prof.professor_id] = prof.nome;
     });
     
-    // Adiciona o nome do professor a cada disciplina
     const disciplinasComProfessor = disciplinas.map(disc => ({
       ...disc,
       nome_professor: professoresMap[disc.professor_id] || 'Não atribuído'
@@ -96,10 +86,8 @@ const matricular = async (req, res) => {
     });
     
     if (response.status === 'ok' && response.linhasAfetadas > 0) {
-      // Se a matrícula foi bem-sucedida, redireciona para a lista de matrículas
       res.redirect('/matriculas');
     } else {
-      // Se houver erro, redireciona de volta para a página de inserção
       res.redirect('/matriculas/inserir');
     }
   } catch (error) {

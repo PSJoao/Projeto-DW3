@@ -3,21 +3,17 @@ const apiService = require('../../../services/apiService');
 // Lista todas as disciplinas
 const listar = async (req, res) => {
   try {
-    // Busca todas as disciplinas
     const responseDisciplinas = await apiService.fazerRequisicaoAutenticada(req, 'get', '/getAllDisciplinas');
     
-    // Busca todos os professores (para exibir o nome do professor na lista)
     const responseProfessores = await apiService.fazerRequisicaoAutenticada(req, 'get', '/getAllProfessores');
     
     const professores = responseProfessores.status === 'ok' ? responseProfessores.registro || [] : [];
     
-    // Cria um mapa de professores para facilitar a busca
     const professoresMap = {};
     professores.forEach(prof => {
       professoresMap[prof.professor_id] = prof.nome;
     });
     
-    // Adiciona o nome do professor a cada disciplina
     let disciplinas = [];
     if (responseDisciplinas.status === 'ok') {
       disciplinas = (responseDisciplinas.registro || []).map(disc => ({
@@ -45,7 +41,6 @@ const listar = async (req, res) => {
 // Exibe a página para inserir uma nova disciplina
 const inserir = async (req, res) => {
   try {
-    // Busca todos os professores para o select
     const response = await apiService.fazerRequisicaoAutenticada(req, 'get', '/getAllProfessores');
     const professores = response.status === 'ok' ? response.registro || [] : [];
     
@@ -81,7 +76,6 @@ const postInserir = async (req, res) => {
     if (response.status === 'ok' && response.linhasAfetadas > 0) {
       res.redirect('/disciplinas');
     } else {
-      // Busca professores novamente para o select em caso de erro
       const responseProfessores = await apiService.fazerRequisicaoAutenticada(req, 'get', '/getAllProfessores');
       const professores = responseProfessores.status === 'ok' ? responseProfessores.registro || [] : [];
       
@@ -96,7 +90,6 @@ const postInserir = async (req, res) => {
   } catch (error) {
     console.error('Erro ao inserir disciplina:', error);
     
-    // Busca professores novamente para o select em caso de erro
     try {
       const responseProfessores = await apiService.fazerRequisicaoAutenticada(req, 'get', '/getAllProfessores');
       const professores = responseProfessores.status === 'ok' ? responseProfessores.registro || [] : [];
@@ -125,12 +118,10 @@ const editar = async (req, res) => {
   const disciplinaId = req.params.id;
   
   try {
-    // Busca os dados da disciplina
     const responseDisciplina = await apiService.fazerRequisicaoAutenticada(req, 'post', '/getDisciplinaByID', {
       disciplinaid: disciplinaId
     });
     
-    // Busca todos os professores para o select
     const responseProfessores = await apiService.fazerRequisicaoAutenticada(req, 'get', '/getAllProfessores');
     const professores = responseProfessores.status === 'ok' ? responseProfessores.registro || [] : [];
     
@@ -166,7 +157,6 @@ const postEditar = async (req, res) => {
     if (response.status === 'ok' && response.linhasAfetadas > 0) {
       res.redirect('/disciplinas');
     } else {
-      // Busca professores novamente para o select em caso de erro
       const responseProfessores = await apiService.fazerRequisicaoAutenticada(req, 'get', '/getAllProfessores');
       const professores = responseProfessores.status === 'ok' ? responseProfessores.registro || [] : [];
       
@@ -181,7 +171,6 @@ const postEditar = async (req, res) => {
   } catch (error) {
     console.error('Erro ao editar disciplina:', error);
     
-    // Busca professores novamente para o select em caso de erro
     try {
       const responseProfessores = await apiService.fazerRequisicaoAutenticada(req, 'get', '/getAllProfessores');
       const professores = responseProfessores.status === 'ok' ? responseProfessores.registro || [] : [];
